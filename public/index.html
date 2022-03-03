@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ARCADE</title>
+  </head>
+  <body>
+
+    <center><img src="/arcade.png" width="500" height="250"></center>
+    <!-- React component inside div -->
+    <center><div id="like_button_container"></div></center>
+    <style>
+      html, body {
+        margin:0;
+        padding:0;
+        background-color: black;
+      }
+      div{
+        width: 500;
+        height: 125;
+        font-size: 100px;
+      }
+    </style>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- React JavaScript File -->
+    <script src="script.js"></script>
+
+
+  </body>
+</html>
