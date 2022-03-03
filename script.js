@@ -20,20 +20,10 @@ class LikeButton extends React.Component {
     }
   */  
   render() {
-    if (this.state.liked) {
-      var rando = parseInt(Math.random() * 3);
-      if(rando == 0) {
-        return "you are cool";
-      } else if (rando == 1) {
-        return "you're number one"
-      } else {
-        return "neat"
-      }
-    }
-
+    //return(<Button onClick = {location.href = "localhost:9000/game"}></Button>)
     return React.createElement('button', //function for change underneath
-      { onClick: () => this.setState({ liked: true }) },
-      'Click for a Surprise'
+      { onClick: () => location.href = '/game'},
+      'Click for Tic-Tac-Toe'
     );
   }
 }

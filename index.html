@@ -2,15 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Example Website</title>
+    <title>ARCADE</title>
   </head>
   <body>
 
-    <h2>Hello peeps!</h2>
-    <p>This is some example code for a website using React.js</p>
-
+    <center><img src="/arcade.png" width="500" height="250"></center>
     <!-- React component inside div -->
-    <div id="like_button_container"></div>
+    <center><div id="like_button_container"></div></center>
+    <style>
+      html, body {
+        margin:0;
+        padding:0;
+        background-color: black;
+      }
+      div{
+        width: 500;
+        height: 125;
+        font-size: 100px;
+      }
+    </style>
 
     <!-- Load React. -->
     <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
@@ -19,6 +29,7 @@
 
     <!-- React JavaScript File -->
     <script src="script.js"></script>
+
 
   </body>
 </html>
