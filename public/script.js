@@ -2,13 +2,15 @@
 
 //React.createElement - renders content to the page
 
+//Arbritrary change
+
 class LikeButton extends React.Component {
   /*
     REQUIRED FOR WORKING CONSTRUCTOR
     constructor(props) {
       super(props);
     }
-  */  
+  */
   constructor(props) {
     super(props);
     this.state = { liked: false };
@@ -18,11 +20,11 @@ class LikeButton extends React.Component {
     render() {
       React.createElement(*insert name of element*, function for purpose)
     }
-  */  
+  */
   render() {
     //return(<Button onClick = {location.href = "localhost:9000/game"}></Button>)
     return React.createElement('button', //function for change underneath
-      { onClick: () => location.href = '/game'},
+      { onClick: () => location.href = '/game' },
       'Click for Tic-Tac-Toe'
     );
   }
