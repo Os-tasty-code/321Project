@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { unmountComponentAtNode} from "react-dom";
 import './App.css'
+//website: https://www.freecodecamp.org/news/create-a-react-frontend-a-node-express-backend-and-connect-them-together-c5798926047c/
+//used for connecting React with Express
+
 //import axios from 'axios'
 //const URL = 'https://jsonplaceholder.typicode.com/users'
+
+//connecting Express and React
+//ReactDOM.mountComponentAtNode(component); 
 
 const Table = () => {
 	const [data, setData] = useState([])
@@ -166,6 +173,21 @@ const Table = () => {
 		return output;
 	}
 
+	const clear = () => {
+		unmountComponentAtNode(document.getElementById('root'));
+	}
+
+	const changeWebpage = () => {
+		var out = [];
+		out.push(
+			<div>
+				<button className='button' class='addButton' onClick={() => clear()}>To Clear</button>
+			</div>
+			//<button className='button' class='addButton' onClick={routeChange}>New Webpage</button>
+		)
+		return out;
+	}
+
 	return (
 		<>
 			<center>
@@ -180,6 +202,7 @@ const Table = () => {
 			</table>
 			
 			{renderInputs()}
+			{changeWebpage()}
 			</center>
 		</>
 	)
