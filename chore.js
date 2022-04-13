@@ -17,7 +17,8 @@ class Chore {
         completionStatus,
         thingA,
         thingB,
-        dueDate
+        dueDate,
+        id,
     ) {
         // Define properties:
         this.name = name;
@@ -30,6 +31,7 @@ class Chore {
             propertyTwo: thingB,
         };
         this.dueDate = dueDate;
+        this.id = id;
     }
     // Add methods like normal functions:
     toggleComplete(completionStatus) {
