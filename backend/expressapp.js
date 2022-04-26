@@ -14,54 +14,53 @@ var cors = require('cors')
 app.use(cors())
 
 // Allows handling of the axios data for .body
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 const url = "mongodb+srv://Philip:malfwKrp0QnjPG8z@cluster0.wdjd3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const databaseName = "ChoreApp"
 const collectionName = "ChoreData"
 
-let data = [];
+let data = []
 
 // Websocket
-const webSocket = require('ws');
-const wss = new webSocket.Server({ noServer: true });
+const webSocket = require('ws')
+const wss = new webSocket.Server({ noServer: true })
+
+var dbo
+var collection
+// Need to call db.close(); when the user exits the page?
 wss.on('connection', function connection(ws) {
 	// Set up a listener for when the collection changes.
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db(databaseName);
-        var collection = dbo.collection(collectionName)
-		changeStream = collection.watch();
-		changeStream.on("change", next => {
-			// Process any change event
-			loadData(ws)
-		})
-    });
-});
+	changeStream = collection.watch();
+	changeStream.on("change", next => {
+		// Process any change event
+		loadData(ws)
+	})
+})
 
 function loadData(ws) {
-	MongoClient.connect(url, function(err, db) {
+	collection.find({}).toArray( 
+	function(err, result) {
 		if (err) throw err;
-		var dbo = db.db(databaseName);
-		var collection = dbo.collection(collectionName)
-		collection.find({}).toArray( 
-		function(err, result) {
-			if (err) throw err;
-			console.log("Data loaded from MongoDB.")
-			//console.log(result)
-			data = result;
-			db.close();
-			if (ws) {
-				ws.send(JSON.stringify({data}))
-			}
-		});
+		console.log("Data loaded from MongoDB.")
+		data = result;
+		if (ws) {
+			ws.send(JSON.stringify({data}))
+		}
 	});
 }
 
 async function main(){
 	// Original listener was here
-	loadData()
+	MongoClient.connect(url, function(err, db) {
+		console.log("connected")
+		if (err) throw err;
+		dbo = db.db(databaseName);
+		collection = dbo.collection(collectionName)
+
+		loadData()
+	})
 }
 main().catch(console.error);
 
@@ -74,17 +73,12 @@ app.post('/create', function(req, res) {
 		desc: req.body.desc
 	}
 
-	MongoClient.connect(url, function(err, db) {
-		if (err) throw err
-		var dbo = db.db(databaseName);
-        dbo.collection(collectionName).insertOne(newChore, function(err, res) {
-			if (err) throw err;
-			console.log("Chore successfully inserted.");
-			console.log(res)
-			db.close();
+    dbo.collection(collectionName).insertOne(newChore, function(err, res) {
+		if (err) throw err;
+		console.log("Chore successfully inserted.");
+		console.log(res)
 
-			data.push(newChore)
-		});
+		data.push(newChore)
 	});
 })
 
@@ -93,19 +87,14 @@ app.post('/delete', function(req, res) {
 	var toDelete = req.body.id
 	console.log(toDelete)
 
-	MongoClient.connect(url, function(err, db) {
-		if (err) throw err
-		var dbo = db.db(databaseName);
-        dbo.collection(collectionName).deleteOne({id: toDelete}, function(err, res) {
-			if (err) throw err;
-			console.log("Chore successfully deleted.");
-			console.log(res)
-			db.close();
+    dbo.collection(collectionName).deleteOne({id: toDelete}, function(err, res) {
+		if (err) throw err;
+		console.log("Chore successfully deleted.");
+		console.log(res)
 
-			const del = data.filter(data => (toDelete !== data.id))
-			data = del
-		});
-	});
+		const del = data.filter(data => (toDelete !== data.id))
+		data = del
+	})
 })
 
 app.get('/api', function (req, res) {
