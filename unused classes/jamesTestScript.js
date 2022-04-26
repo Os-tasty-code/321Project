@@ -4,7 +4,7 @@
  */
 
 import Chore from "./Chore.js";
-import Home from "./Home.js";
+import Home from "../my-app/src/Classes/Home.js";
 import User from "./User.js";
 
 
