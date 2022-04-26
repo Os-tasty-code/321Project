@@ -6,29 +6,28 @@
  *  
  */
 
-
 class Home {
+    static id = 0;
     constructor(
         // Defines parameters:
         name,
-        userArray,
+        users,
         choreArray,
         thingA,
         thingB,
-        id,
         details,
     ) {
         // Define properties:
         this.name = name;
-        this.userArray = userArray;
+        this.users = users;
         this.choreArray = choreArray;
         this.placeHolder = {
             //another object within the chore
             propertyOne: thingA,
             propertyTwo: thingB,
         };
-        this.id = id;
         this.details = details;
+        this.id++;
     }
     // Add methods like normal functions:
     toggleComplete(completionStatus) {
