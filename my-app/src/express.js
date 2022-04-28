@@ -10,12 +10,13 @@ app.get('/', function (req, res) {
     }
     res.sendFile('public/index.html', options)
 })
-// app.get('/game', function (req, res) {
-//     var options = {
-//         root: path.join(__dirname)
-//     }
-//     res.sendFile('public/tic.html', options)
-// })
+
+app.get('/homesetup', function (req, res) {
+    var options = {
+        root: path.join(__dirname)
+    }
+    res.sendFile('public/indexSetup.html', options)
+})
 
 app.listen(9000, function (req, res) {
     console.log('Running on port 9000.');

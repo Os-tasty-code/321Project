@@ -1,22 +1,44 @@
 import React, { useState, useEffect } from 'react'
-import { unmountComponentAtNode } from "react-dom";
-import './SetUp.css'
-import './Classes/Home.js'
-import './navbar.js'
 import axios from 'axios'
-import Home from './Classes/Home.js';
+
+import './SetUp.css'
+import '../src/Classes/Home.js'
+import '../src/Nav.js'
+import Home from '../src/Classes/Home.js';
 
 const SetUp = () => {
     var home = new Home("", [],[],"","","");
+	// const [ws, setWs] = useState(new WebSocket(URL));
+
+	// const [message] = useState([]);
+	// const [messages, setMessages] = useState([]);
+
 	const [data, setData] = useState([])
 	const [input, setInput] = useState({
 		id: home.id,
-		name: "",
+		name: home.name,
+		users: home.users
 	})
-	useEffect(() => {
-		//getData()
-	}, [])
-
+	// useEffect(() => {
+	// 	ws.onopen = () => {
+	// 		console.log('WebSocket Connected');
+	// 	}
+	
+	// 	ws.onmessage = (e) => {
+	// 		console.log(e.data)
+	// 		console.log(JSON.parse(e.data))
+	// 		var parsedData = JSON.parse(e.data)
+	// 	  setData(parsedData.data);
+	// 	  setMessages([message, ...messages]);
+	// 	}
+	
+	// 	return () => {
+	// 		ws.onclose = () => {
+	// 			console.log('WebSocket Disconnected');
+	// 			setWs(new WebSocket(URL));
+	// 		}
+	// 	}
+	// }, [ws.onmessage, ws.onopen, ws.onclose, messages]);
 	// const getData = async () => {
 	// 	// Make a request for a user with a given ID
 	// 	axios.get('http://localhost:9000/api')
@@ -36,20 +58,23 @@ const SetUp = () => {
 	// 	//setData(response.data)
 	// }
 
-	// const removeData = (id) => {
-	// 	// Send the delete request to the database.
-	// 	/* axios.delete(`${URL}/${id}`).then(res => {
-	// 		const del = data.filter(data => id !== data.id)
-	// 		setData(del)
-	// 	)*/
-	// 	const del = data.filter(data => (id !== data.id))
-	// 	setData(del)
-	// }
 	const addData = (id) => {
 		if (input.id === "") { return }
 		if (input.name === "") { return }
 
 		setData(data => [...data, input]);
+
+		const toSend = {
+			id: input.id,
+			name: input.name,
+			users: input.users
+		}
+
+		axios.post('http://localhost:9000/create', toSend).then(() => {
+			console.log('Chore addition sent.')
+			}).catch(err => {
+		  		console.error(err);
+			});
 	}
 
 	const handleChange = evt => {
@@ -64,7 +89,7 @@ const SetUp = () => {
 		var output = []
 		output.push(
 			<div>
-                Name:
+                House Name: 
 				<input
 					type="text"
 					name="name"
@@ -74,15 +99,24 @@ const SetUp = () => {
 				<p></p>
 				Enter House Type:
 				<br></br>
-					<button className='button' class='addButton'>Parent-Child</button>
+				<br></br>
+				<input
+					type="radio"
+					id = "r"
+					name="type"
+					value="parent-child"
+					onChange={handleChange}/>
+				<label>Parent-Child</label>
 				<input
 					type="radio"
 					id = "r"
 					name="type"
 					value="roomate"
-					onChange={renderMembers()} />
+					onChange={handleChange}/>
 				<label>Roommates</label><br></br>
 				<br></br>
+				<br></br>
+
 			</div>
 		)
 		return output;
@@ -146,7 +180,6 @@ const SetUp = () => {
 				<h1 id='title'>Home Setup</h1>
 				<setup id='data'>
                     {renderInputs()}
-					{renderMembers()}
 				</setup>
 			</center>
 		</>

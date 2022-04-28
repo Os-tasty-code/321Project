@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { unmountComponentAtNode } from "react-dom";
 
 import './App.css'
 import axios from 'axios'
@@ -203,21 +202,6 @@ const Table = () => {
 		return output;
 	}
 
-	const clear = () => {
-		unmountComponentAtNode(document.getElementById('root'));
-	}
-
-	const changeWebpage = () => {
-		var out = [];
-		out.push(
-			<div>
-				<button className='button' class='addButton' onClick={() => clear()}>To Clear</button>
-			</div>
-			//<button className='button' class='addButton' onClick={routeChange}>New Webpage</button>
-		)
-		return out;
-	}
-
 	return (
 		<>
 			<center>
@@ -232,7 +216,6 @@ const Table = () => {
 				</table>
 
 				{renderInputs()}
-				{changeWebpage()}
 			</center>
 		</>
 	)
