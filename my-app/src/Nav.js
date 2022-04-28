@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './Nav.css'
 
 const Nav = () => {
     //need to add nav bar to pages
@@ -8,9 +9,10 @@ const Nav = () => {
 			<center>
 				<setup id='nav'>
                     <ul>
-                        <li><a href="">Home</a></li>
+                        <li><a href="/indexSetup.html">Home</a></li>
                         <li><a href="">Chores</a></li>
                         <li><a href="">Account</a></li>
+                        <li><a href="">Profile</a></li>
                     </ul>
 				</setup>
 			</center>
