@@ -1,5 +1,20 @@
 # 321Project
 
+## SET UP CONNECTIONS
+Please follow the
+
+'cd backend                                             '
+'npm init                                               '
+'npm install --save express                             '
+'npm install cors                                       '
+'npm install ws                                         '
+'npm install mongodb                                    '
+
+'cd ../my-app                                           '
+'npm init                                               '
+'npm install react                                      '
+'npm install --save axois                               '
+
 ### REACT
 In order to run the frontend (React Code), please move into the my-app folder and run the program. 
 Here are the commands to put into the terminal (starting from the 321 Project folder):
