@@ -1,5 +1,6 @@
 const express = require('express')
 const {MongoClient} = require('mongodb')
+var ObjectId = require('mongodb').ObjectID;
 const app = express()
 
 const port = 9000
@@ -7,7 +8,6 @@ app.use(express.static('public'))
 
 // Information: Need cors installed. npm install cors.
 // Also needs websocket installed. npm install ws
-
 
 // Resolves the issues caused by app and express running on two different ports.
 var cors = require('cors')
@@ -84,15 +84,15 @@ app.post('/create', function(req, res) {
 
 app.post('/delete', function(req, res) {
 	// This formatting needs to be better defined later.
-	var toDelete = req.body.id
+	var toDelete = req.body._id
 	console.log(toDelete)
 
-    dbo.collection(collectionName).deleteOne({id: toDelete}, function(err, res) {
+    dbo.collection(collectionName).deleteOne({"_id": ObjectId(toDelete)}, function(err, res) {
 		if (err) throw err;
 		console.log("Chore successfully deleted.");
 		console.log(res)
 
-		const del = data.filter(data => (toDelete !== data.id))
+		const del = data.filter(data => (toDelete !== data._id))
 		data = del
 	})
 })
