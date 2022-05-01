@@ -43,7 +43,7 @@ function loadData(ws) {
 	collection.find({}).toArray( 
 	function(err, result) {
 		if (err) throw err;
-		console.log("Data loaded from MongoDB.")
+		//console.log("Data loaded from MongoDB.")
 		data = result;
 		if (ws) {
 			ws.send(JSON.stringify({data}))
@@ -73,6 +73,11 @@ app.post('/create', function(req, res) {
 		desc: req.body.desc
 	}
 
+	// So our browser doesn't timeout.
+	res.send({})
+
+	console.log("Running create chore code, accessing DB..")
+
     dbo.collection(collectionName).insertOne(newChore, function(err, res) {
 		if (err) throw err;
 		console.log("Chore successfully inserted.");
@@ -86,6 +91,11 @@ app.post('/delete', function(req, res) {
 	// This formatting needs to be better defined later.
 	var toDelete = req.body._id
 	console.log(toDelete)
+
+	// So our browser doesn't timeout.
+	res.send({})
+
+	console.log("Running delete chore code, accessing DB..")
 
     dbo.collection(collectionName).deleteOne({"_id": ObjectId(toDelete)}, function(err, res) {
 		if (err) throw err;
