@@ -5,11 +5,28 @@ import axios from 'axios'
 
 const baseURL = 'localhost:9000'
 const socketURL = 'ws://' + baseURL + '/api'
+
+var toReplace = {
+	'&': '&amp;',
+	'<': '&lt;',
+	'>': '&gt;',
+	'"': '&quot;',
+	"'": '&#39;',
+	'/': '&#x2F;',
+	'`': '&#x60;',
+	'=': '&#x3D;'
+};
+  
+function escapeHTML(string) {
+	return String(string).replace(/[&<>"'`=\/]/g, function (str) {
+		return toReplace[str];
+	})
+}
 function ChoreTable() {
 	// Handles the chore data.
+	const [status, setStatus] = React.useState(0)
 	const [data, setData] = React.useState([])
 	const [input, setInput] = React.useState({
-		//id: 1,
 		name: "",
 		assignedTo: "",
 		desc: ""
@@ -32,13 +49,15 @@ function ChoreTable() {
 		}
 
 		ws.onmessage = (e) => {
-			console.log(e.data)
-			console.log(JSON.parse(e.data))
+			//console.log(e.data)
+			//console.log(JSON.parse(e.data))
+			console.log("Data updated from Websocket.")
 			var parsedData = JSON.parse(e.data)
 			setData(parsedData.data)
 			setMessages([message, ...messages])
+			setStatus(0)
 		}
-	
+
 		return () => {
 			ws.onclose = () => {
 				console.log('WebSocket Disconnected')
@@ -52,7 +71,7 @@ function ChoreTable() {
 		axios.get('http://' + baseURL + '/api')
 			.then(function (responseAx) {
 				// Handle success
-				console.log(responseAx)
+				//console.log(responseAx)
 				setData(responseAx.data)
 			})
 			.catch(function (error) {
@@ -62,13 +81,17 @@ function ChoreTable() {
 			.then(function () {
 				// Always executed
 			})
-
-		//setData(response.data)
 	}
 
 	function removeData(_id) {
-		const del = data.filter(data => (_id !== data._id))
-		setData(del)
+		// This is instant deletion on the client-side.
+		//const del = data.filter(data => (_id !== data._id))
+		//setData(del)
+
+		// Wait until a single action is done before accepting more.
+		if (status !== 0) { console.log("at status 0."); return }
+
+		setStatus(2)
 
 		// Send the delete request to the database.
 		const toSend = {_id: _id,}
@@ -76,23 +99,28 @@ function ChoreTable() {
 			console.log('Chore deletion sent.')
 			}).catch(err => {
 		  		console.error(err)
+				removeData(_id)
 			})
 	}
 
 	function addData() {
-		// There's probably a nicer way to iteratively check these.
-		//if (input.id === "") { return }
+		// Wait until a single action is done before accepting more.
+		if (status !== 0) { console.log("at status 0."); return }
+
 		if (input.name === "") { return }
 		if (input.assignedTo === "") { return }
 		if (input.desc === "") { return }
 
-		setData(data => [...data, input])
+		// This is an instant-addition on the client-side, but creates an issue with deletion if it's done quickly.
+		//setData(data => [...data, input])
 
 		const toSend = {
-			name: input.name,
-			assignedTo: input.assignedTo,
-			desc: input.desc
+			name: escapeHTML(input.name),
+			assignedTo: escapeHTML(input.assignedTo),
+			desc: escapeHTML(input.desc)
 		}
+
+		setStatus(1)
 
 		axios.post('http://' + baseURL + '/create', toSend).then(() => {
 			console.log('Chore addition sent.')
@@ -150,12 +178,14 @@ function ChoreTable() {
 					type="text"
 					name="name"
 					value={input.name}
+					maxLength="25"
 					onChange={handleChange} />
 				<br></br>
 				Assigned To:
 				<input
 					type="text"
 					name="assignedTo"
+					maxLength="25"
 					value={input.assignedTo}
 					onChange={handleChange} />
 				<br></br>
@@ -163,6 +193,7 @@ function ChoreTable() {
 				<input
 					type="text"
 					name="desc"
+					maxLength="70"
 					value={input.desc}
 					onChange={handleChange} />
 				<br></br>
@@ -170,6 +201,16 @@ function ChoreTable() {
 			</div>
 		)
 		return output
+	}
+
+	function renderStatus() {
+		if (status === 1) {
+			return <h2>Loading addition..</h2>
+		} else if (status === 2) {
+			return <h2>Loading deletion..</h2>
+		} else {
+			return <></>
+		}
 	}
 
 	return (
@@ -187,6 +228,8 @@ function ChoreTable() {
 			<div data-testid='inputs'>
 			{renderInputs()}
 			</div>
+
+			{renderStatus()}
 		</center></>
 	)
 }
