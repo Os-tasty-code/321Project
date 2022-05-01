@@ -6,23 +6,24 @@ import axios from 'axios'
 const baseURL = 'localhost:9000'
 const socketURL = 'ws://' + baseURL + '/api'
 
-var toReplace = {
-	'&': '&amp;',
-	'<': '&lt;',
-	'>': '&gt;',
-	'"': '&quot;',
-	"'": '&#39;',
-	'/': '&#x2F;',
-	'`': '&#x60;',
-	'=': '&#x3D;'
-};
-  
-function escapeHTML(string) {
-	return String(string).replace(/[&<>"'`=\/]/g, function (str) {
-		return toReplace[str];
-	})
-}
 function ChoreTable() {
+	var toReplace = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#39;',
+		'/': '&#x2F;',
+		'`': '&#x60;',
+		'=': '&#x3D;'
+	};
+	  
+	function escapeHTML(string) {
+		return String(string).replace(/[&<>"'`=\/]/g, function (str) {
+			return toReplace[str];
+		})
+	}
+
 	// Handles the chore data.
 	const [status, setStatus] = React.useState(0)
 	const [data, setData] = React.useState([])
