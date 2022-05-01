@@ -67,7 +67,7 @@ main().catch(console.error);
 app.post('/create', function(req, res) {
 	// This formatting needs to be better defined later.
 	const newChore = {
-		id: req.body.id,
+		//id: req.body.id,
 		name: req.body.name,
 		assignedTo: req.body.assignedTo,
 		desc: req.body.desc
