@@ -19,7 +19,8 @@ app.use(express.json())
 
 const url = "mongodb+srv://Philip:malfwKrp0QnjPG8z@cluster0.wdjd3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const databaseName = "ChoreApp"
-const collectionName = "ChoreData"
+const choreCollection = "ChoreData"
+const userCollection = "UserData"
 
 let data = []
 
@@ -29,6 +30,7 @@ const wss = new webSocket.Server({ noServer: true })
 
 var dbo
 var collection
+var users
 // Need to call db.close(); when the user exits the page?
 wss.on('connection', function connection(ws) {
 	// Set up a listener for when the collection changes.
@@ -57,8 +59,8 @@ async function main(){
 		console.log("connected")
 		if (err) throw err;
 		dbo = db.db(databaseName);
-		collection = dbo.collection(collectionName)
-
+		collection = dbo.collection(choreCollection)
+		users = dbo.collection(userCollection)
 		loadData()
 	})
 }
@@ -78,7 +80,7 @@ app.post('/create', function(req, res) {
 
 	console.log("Running create chore code, accessing DB..")
 
-    dbo.collection(collectionName).insertOne(newChore, function(err, res) {
+    dbo.collection(choreCollection).insertOne(newChore, function(err, res) {
 		if (err) throw err;
 		console.log("Chore successfully inserted.");
 		console.log(res)
@@ -97,7 +99,7 @@ app.post('/delete', function(req, res) {
 
 	console.log("Running delete chore code, accessing DB..")
 
-    dbo.collection(collectionName).deleteOne({"_id": ObjectId(toDelete)}, function(err, res) {
+    dbo.collection(choreCollection).deleteOne({"_id": ObjectId(toDelete)}, function(err, res) {
 		if (err) throw err;
 		console.log("Chore successfully deleted.");
 		console.log(res)
@@ -105,6 +107,22 @@ app.post('/delete', function(req, res) {
 		const del = data.filter(data => (toDelete !== data._id))
 		data = del
 	})
+})
+
+app.post('/users', function(req, res) {
+	const {username, password} = req.body;
+	//valid username
+	//valid password
+	//save user to database
+
+
+
+	if(validPassword) {
+		res.send({message: "User is Valid"});
+	} else {
+		res.send({message: "User is Invalid"});
+	}
+
 })
 
 app.get('/api', function (req, res) {
