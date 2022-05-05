@@ -109,18 +109,23 @@ app.post('/delete', function(req, res) {
 	})
 })
 
-app.post('/users', function(req, res) {
+app.post('/check', function(req, res) {
 	const {username, password} = req.body;
 	//valid username
 	//valid password
 	//save user to database
+	if(dbo.collection(userCollection).find({username: username}).length == 0 || err) {
+		
+		const _id = dbo.collection(userCollection).find({username: username});
+		
+		
+		if(_id.password == password) {
 
-
-
-	if(validPassword) {
-		res.send({message: "User is Valid"});
+		} else {
+			alert("Wrong Password");
+		}
 	} else {
-		res.send({message: "User is Invalid"});
+		alert("Wrong Username");
 	}
 
 })

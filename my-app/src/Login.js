@@ -43,20 +43,14 @@ const Login = () => {
 	}, [ws.onmessage, ws.onopen, ws.onclose, messages])
 
 	const checkData = async () => {
-		// Make a request for a user with a given ID
-		axios.get('http://localhost:9000/user')
-			.then(function (responseAx) {
-				// handle success
-				console.log(responseAx);
-				setData(responseAx.data)
+		const toSend = {username: escapeHTML(input.name), password: escapeHTML(input.pass),};
+		
+		axios.post('http://' + baseURL + '/check', toSend).then(() => {
+			console.log('Chore deletion sent.')
+			}).catch(err => {
+		  		console.error(err)
+				removeData(_id)
 			})
-			.catch(function (error) {
-				// handle error
-				console.log(error);
-			})
-			.then(function () {
-				// always executed
-			});
 	}
 
 	const handleChange = evt => {
@@ -76,7 +70,7 @@ const Login = () => {
 				<input
 					type="text"
 					name="username"
-					value={input.username}
+					value={input.name}
 					onChange={handleChange}/>
 				<br></br>
 				<p></p>
@@ -85,9 +79,10 @@ const Login = () => {
 				<input
 					type="text"
 					name="password"
-					value={input.password}
+					value={input.pass}
 					onChange={handleChange}/>
 				<br></br>
+				<button type='button' class='submit' onClick={() => checkData()}></button>
 			</div>
 		)
 		return output;
