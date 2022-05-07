@@ -13,7 +13,7 @@ Please follow the
 'cd ../my-app                                           '
 'npm init                                               '
 'npm install react                                      '
-'npm install --save axois                               '
+'npm install --save axios                               '
 
 ### REACT
 In order to run the frontend (React Code), please move into the my-app folder and run the program. 
