@@ -9,6 +9,9 @@ After cloning the project, please set up the dependencies for the project by fol
 `npm install cors                                       `
 `npm install ws                                         `
 `npm install mongodb                                    `
+`npm install dotenv                                     `
+`npm install colors                                     `
+
 
 `cd ../my-app                                           `
 `npm init                                               `
