@@ -1,6 +1,11 @@
 const express = require('express')
 const {MongoClient} = require('mongodb')
+const connectDB = require('./config/db')
+require('dotenv').config({ path: '.env' });
 var ObjectId = require('mongodb').ObjectID;
+
+connectDB()
+
 const app = express()
 
 const port = 9000
