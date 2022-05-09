@@ -8,12 +8,6 @@ After cloning the project, please set up the dependencies for the project by fol
 
 `npm install --save express cors ws mongodb dotenv colors concurrently        `
 
-`npm install --save express                             `
-`npm install cors                                       `
-`npm install ws                                         `
-`npm install mongodb                                    `
-`npm install dotenv                                     `
-`npm install colors                                     `
 
 
 `cd ../my-app                                           `
@@ -21,8 +15,7 @@ After cloning the project, please set up the dependencies for the project by fol
 
 
 `npm install --save react axios concurrently            `
-`npm install react                                      `
-`npm install --save axios                               `
+
 
 ## RUN THE PROGRAM
 The code needs to be run on two separate terminals in order to display the product. 
