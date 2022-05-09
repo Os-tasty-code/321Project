@@ -11,7 +11,7 @@ After cloning the project, please set up the dependencies for the project by fol
 
 
 `cd ../my-app                                           `
-`npm init                                               `
+`npm init                                               ` (hit enter until back to prompt)
 
 
 `npm install --save react axios concurrently            `
