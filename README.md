@@ -4,19 +4,18 @@
 After cloning the project, please set up the dependencies for the project by following these commands.
 
 `cd backend                                             `
-`npm init                                               `
-`npm install --save express                             `
-`npm install cors                                       `
-`npm install ws                                         `
-`npm install mongodb                                    `
-`npm install dotenv                                     `
-`npm install colors                                     `
+`npm init                                               ` (hit enter until back to prompt)
+
+`npm install express cors ws mongodb dotenv colors concurrently        `
+
 
 
 `cd ../my-app                                           `
-`npm init                                               `
-`npm install react                                      `
-`npm install --save axios                               `
+`npm init                                               ` (hit enter until back to prompt)
+
+
+`npm install react axios concurrently            `
+
 
 ## RUN THE PROGRAM
 The code needs to be run on two separate terminals in order to display the product. 
