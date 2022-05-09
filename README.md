@@ -4,17 +4,10 @@
 After cloning the project, please set up the dependencies for the project by following these commands.
 
 `cd backend                                             `
-`npm init                                               ` (hit enter until back to prompt)
-
-`npm install express cors ws mongodb dotenv colors concurrently        `
-
-
+`npm install                                            `
 
 `cd ../my-app                                           `
-`npm init                                               ` (hit enter until back to prompt)
-
-
-`npm install react axios concurrently            `
+`npm install                                            `
 
 
 ## RUN THE PROGRAM

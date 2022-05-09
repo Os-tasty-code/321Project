@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import './SetUp.css'
-import '../src/Classes/Home.js'
-import '../src/Nav.js'
-import Home from '../src/Classes/Home.js';
+import Home from '../classes/Home.js';
 
 const SetUp = () => {
     var home = new Home("", [],[],"","","");
@@ -114,9 +112,8 @@ const SetUp = () => {
 					value="roomate"
 					onChange={handleChange}/>
 				<label>Roommates</label><br></br>
-				<br></br>
-				<br></br>
-
+				<p></p>
+				<button type='button' class='submit'>Submit</button>
 			</div>
 		)
 		return output;
@@ -158,6 +155,9 @@ const SetUp = () => {
 							value="child"
 							onChange={handleChange} />
 						<label>Child</label><br></br>
+						<br></br>
+						<p></p>
+						<button type='button' class='submit'>Submit</button>
 					</td>
 					<td>
 					<button className='button' class='addButton' onClick={() => removeMember()}>Remove</button>
@@ -178,7 +178,7 @@ const SetUp = () => {
 		<>
 			<center>
 				<h1 id='title'>Home Setup</h1>
-				<setup id='data'>
+				<setup>
                     {renderInputs()}
 				</setup>
 			</center>
