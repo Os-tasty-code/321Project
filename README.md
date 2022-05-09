@@ -4,7 +4,7 @@
 After cloning the project, please set up the dependencies for the project by following these commands.
 
 `cd backend                                             `
-`npm init                                               `
+`npm init                                               ` (hit enter until back to prompt)
 
 `npm install --save express cors ws mongodb dotenv colors concurrently        `
 
