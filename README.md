@@ -5,6 +5,9 @@ After cloning the project, please set up the dependencies for the project by fol
 
 `cd backend                                             `
 `npm init                                               `
+
+`npm install --save express cors ws mongodb dotenv colors concurrently        `
+
 `npm install --save express                             `
 `npm install cors                                       `
 `npm install ws                                         `
@@ -15,6 +18,9 @@ After cloning the project, please set up the dependencies for the project by fol
 
 `cd ../my-app                                           `
 `npm init                                               `
+
+
+`npm install --save react axios concurrently            `
 `npm install react                                      `
 `npm install --save axios                               `
 
