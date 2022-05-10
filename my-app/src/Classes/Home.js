@@ -1,11 +1,3 @@
-/**
- * Class for each Home
- * 
- * remember to add "<script type="module" src="Home.js"></script>" in the head of any applicable HTML file
- * AND remember to import Home.js near beginning of other applicable .js files (like for use in arrays in User?)
- *  
- */
-
 class Home {
     static id = 0;
     constructor(

@@ -92,7 +92,7 @@ const Login = () => {
 	return (
 		<>
 			<center>
-				<h1 id='title'>Home Setup</h1>
+				<h1 id='title'>Login</h1>
 				<setup>
                     {renderInputs()}
 				</setup>
